@@ -20,8 +20,9 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo apt update
-          sudo apt install -y build-essential libssl-dev libffi-dev python3-dev ffmpeg libsdl2-dev libsdl2-image-dev libsdl2-mixin-dev libsdl2-ttf-dev libportmidi-dev libswscale-dev libavformat-dev libavcodec-dev zlib1g-dev openjdk-17-jdk zip unzip autoconf automake libtool gettext pkg-config
+          sudo rm -rf /var/lib/apt/lists/*
+          sudo apt-get update -y || true
+          sudo apt-get install -y --no-install-recommends build-essential libssl-dev libffi-dev python3-dev ffmpeg libsdl2-dev libsdl2-image-dev libsdl2-mixin-dev libsdl2-ttf-dev libportmidi-dev libswscale-dev libavformat-dev libavcodec-dev zlib1g-dev openjdk-17-jdk zip unzip autoconf automake libtool gettext pkg-config
           pip install --upgrade pip setuptools cython buildozer kivy
 
       - name: Build APK with Buildozer
