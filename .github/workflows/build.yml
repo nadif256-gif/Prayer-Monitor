@@ -2,7 +2,7 @@ name: Build Android APK
 
 on:
   push:
-    branches: [ "main", "master" ]
+    branches: [ main, master ]
   workflow_dispatch:
 
 jobs:
@@ -20,12 +20,13 @@ jobs:
 
       - name: Install System Dependencies
         run: |
-          sudo apt-get update
-          sudo apt-get install -y build-essential ccache git libffi-dev libssl-dev python3-dev libsdl2-dev libsdl2-image-dev libsdl2-mixin-dev libsdl2-ttf-dev libportmidi-dev libswscale-dev libavformat-dev libavcodec-dev zlib1g-dev openjdk-17-jdk zip unzip autoconf automake libtool gettext pkg-config
+          sudo export DEBIAN_FRONTEND=noninteractive
+          sudo apt-get update -y
+          sudo apt-get install -y --no-install-recommends build-essential ccache git libffi-dev libssl-dev python3-dev libsdl2-dev libsdl2-image-dev libsdl2-mixin-dev libsdl2-ttf-dev libportmidi-dev libswscale-dev libavformat-dev libavcodec-dev zlib1g-dev openjdk-17-jdk zip unzip autoconf automake libtool gettext pkg-config
 
-      - name: Install Python Tools
+      - name: Install Python Dependencies
         run: |
-          pip install --upgrade pip setuptools
+          python -m pip install --upgrade pip setuptools
           pip install "cython<3.0.0" buildozer kivy
 
       - name: Build APK with Buildozer
